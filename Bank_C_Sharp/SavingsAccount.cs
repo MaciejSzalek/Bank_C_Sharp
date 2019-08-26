@@ -6,22 +6,21 @@ using System.Threading.Tasks;
 
 namespace Bank_C_Sharp
 {
-    class BillingAccount : Account
+    class SavingsAccount : Account
     {
-        public BillingAccount(ulong id, string firstName, string lastName, string pesel)
+        public SavingsAccount(ulong id, string firstName, string lastName, string pesel)
             : base(id, firstName, lastName, pesel)
         {
         }
 
-
-        public void TakeCharge(decimal value)
+        public void AddInterest(decimal interest)
         {
-            Balance -= value;
+            Balance += Balance * interest;
         }
 
         public override string TypeName()
         {
-            return "BILLING ACCOUNT";
+            return "SAVINGS ACCOUNT";
         }
     }
 }

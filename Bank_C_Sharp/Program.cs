@@ -10,7 +10,6 @@ namespace Bank_C_Sharp
     {
         static readonly string name = "Name: Bank C#";
         static readonly string author = "Author: Maciej Szałek";
-        static Printer printer = new Printer();
 
         static void Main(string[] args)
         {
@@ -18,19 +17,29 @@ namespace Bank_C_Sharp
             Console.WriteLine(author);
             Console.WriteLine();
 
-            SavingAccount savingAccount = new SavingAccount("940000000001", 0.0M, "Maciek", "Szalek", "90232093201");
-            SavingAccount savingAccount2 = new SavingAccount("940000000002", 0.0M, "John", "Smith", "85022093000");
+            AccountsManager manager = new AccountsManager();
 
-            BillingAccount billingAccount = new BillingAccount(savingAccount.accountNumber,
-                savingAccount.balance,
-                savingAccount.firstName,
-                savingAccount.lastName,
-                savingAccount.pesel);
-       
-            printer.Print(savingAccount);
-            printer.Print(savingAccount2);
-            printer.Print(billingAccount);
+            manager.CreateBillingAccount("John", "Smith", "1234567890");
+            manager.CreateSavingsAccount("John", "Smith", "1234567890");
+            manager.CreateSavingsAccount("Mark", "Smith", "1234567890");
+            manager.CreateSavingsAccount("Aaaaa", "Bbbbb", "0987654321");
 
+            IList<Account> accounts = (IList<Account>)manager.GetAllAccounts();
+
+            Printer printer = new Printer();
+        
+            foreach(Account account in accounts)
+            {
+                printer.Print(account);
+            }
+
+            IEnumerable<string> users = manager.ListOfCustomers();
+
+            foreach(string user in users)
+            {
+                Console.WriteLine(user);
+            }
+   
             Console.ReadKey();
         }
     }
