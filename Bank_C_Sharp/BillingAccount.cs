@@ -13,7 +13,6 @@ namespace Bank_C_Sharp
         {
         }
 
-
         public void TakeCharge(decimal value)
         {
             Balance -= value;
